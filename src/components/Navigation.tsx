@@ -9,7 +9,7 @@ export default function Navigation() {
   return (
     <nav className="w-full py-4 px-6 bg-gray-100 dark:bg-gray-800 mb-8">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <div className="text-xl font-bold">Mon Application</div>
+        <div className="text-xl font-bold">Portfolio</div>
         <ul className="flex space-x-6">
           <li>
             <Link

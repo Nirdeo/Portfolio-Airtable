@@ -3,7 +3,6 @@
 import { Administrateur } from "@/types/Administrateur";
 import { getAirtableAdministrateurs } from "@/utils/airtable";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 
 export default function Administrateurs() {
   const [administrateurs, setAdministrateurs] = useState<Administrateur[]>([]);
