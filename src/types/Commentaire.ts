@@ -1,7 +1,7 @@
 export type Commentaire = {
   id: string;
   fields: {
-    Id: string;
+    Id: number;
     Commentaire: string;
     Administrateur: string;
     "Date de création": string;
