@@ -1,18 +1,18 @@
 export type Projet = {
   id: string;
   fields: {
-    Id: string;
+    Id: number;
     Nom: string;
     Description: string;
     Technologies: string;
     Lien: string;
-    Visuels: string;
+    Visuels: string[];
     Promotion: string;
     Administrateur: string;
-    Categorie: string;
-    Likes: string;
+    Categorie: string[];
+    Likes: number;
     Statut: string;
-    Commentaires: string;
+    Commentaires: string[];
   };
 };
 

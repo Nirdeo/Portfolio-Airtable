@@ -1,13 +1,13 @@
 export type Administrateur = {
   id: string;
   fields: {
-    Id: string;
+    Id: number;
     Nom: string;
     Prénom: string;
     Email: string;
     "Mot de passe"?: string;
     Projets?: string[];
-    Likes: string;
+    Likes: number;
     Commentaires?: string[];
   };
 }; 
