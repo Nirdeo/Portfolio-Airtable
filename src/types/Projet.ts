@@ -1,3 +1,18 @@
+// Type pour les attachements Airtable
+export type AirtableAttachment = {
+  id: string;
+  url: string;
+  filename: string;
+  size: number;
+  type: string;
+  width?: number;
+  height?: number;
+  thumbnails?: {
+    small: { url: string; width: number; height: number };
+    large: { url: string; width: number; height: number };
+  };
+};
+
 export type Projet = {
   id: string;
   fields: {
@@ -6,7 +21,7 @@ export type Projet = {
     Description: string;
     Technologies: string;
     Lien: string;
-    Visuels: string[];
+    Visuels: AirtableAttachment[];
     Promotion: string;
     Administrateur: string;
     Categorie: string[];
