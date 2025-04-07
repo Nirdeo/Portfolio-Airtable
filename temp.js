@@ -1,0 +1,1 @@
+const Airtable = require('airtable'); const base = new Airtable({apiKey: process.env.AIRTABLE_KEY}).base(process.env.AIRTABLE_BASE); (async () => { const records = await base('Projets').select().all(); console.log(JSON.stringify(records[0], null, 2)); })();
