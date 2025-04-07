@@ -31,6 +31,16 @@ export default function Navigation() {
               Administrateurs
             </Link>
           </li>
+          <li>
+            <Link
+              href="/projets"
+              className={`hover:underline ${
+                pathname === "/projets" ? "font-bold" : ""
+              }`}
+            >
+              Projets
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>
