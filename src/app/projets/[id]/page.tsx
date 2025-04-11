@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getAirtableProjectById } from "@/utils/airtable";
-import { Projet, AirtableAttachment } from "@/types/Projet";
+import { Projet } from "@/types/Projet";
 import { notFound } from "next/navigation";
 import LikeButton from "@/components/LikeButton";
+import ImageCarousel from "@/components/ImageCarousel";
 
 type Props = {
   params: {
@@ -12,8 +13,9 @@ type Props = {
 };
 
 export default async function ProjectDetail({ params }: Props) {
+  const { id } = await params;
   try {
-    const projectData = await getAirtableProjectById(params.id);
+    const projectData = await getAirtableProjectById(id);
     
     if (!projectData) {
       return notFound();
@@ -68,29 +70,12 @@ export default async function ProjectDetail({ params }: Props) {
           {/* Galerie d'images */}
           {Array.isArray(project.fields.Visuels) && project.fields.Visuels.length > 0 && (
             <div className="mb-8">
-              <div className="relative h-96 w-full rounded-lg overflow-hidden">
-                <Image 
-                  src={project.fields.Visuels[0].url} 
-                  alt={project.fields.Nom || "Image du projet"}
-                  fill
-                  className="object-cover"
-                />
+              <div className="relative aspect-video w-full rounded-lg overflow-hidden">
+                  <ImageCarousel
+                      images={project.fields.Visuels}
+                      projectName={project.fields.Nom}
+                  />
               </div>
-              
-              {project.fields.Visuels.length > 1 && (
-                <div className="grid grid-cols-4 gap-2 mt-2">
-                  {project.fields.Visuels.slice(1).map((visuel, index) => (
-                    <div key={index} className="relative h-24 rounded-lg overflow-hidden">
-                      <Image 
-                        src={visuel.url} 
-                        alt={`Image ${index + 2} du projet`}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  ))}
-                </div>
-              )}
             </div>
           )}
 

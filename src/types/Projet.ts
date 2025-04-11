@@ -1,4 +1,3 @@
-// Type pour les attachements Airtable
 export type AirtableAttachment = {
   id: string;
   url: string;

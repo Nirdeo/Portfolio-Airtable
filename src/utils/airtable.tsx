@@ -2,7 +2,6 @@
  
 import Airtable from "airtable";
 
-// Check if environment variables are defined
 if (!process.env.AIRTABLE_KEY) {
   throw new Error("AIRTABLE_KEY is not defined in environment variables");
 }
