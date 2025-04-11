@@ -12,7 +12,6 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    // Récupérer le projet actuel pour obtenir le nombre de likes
     const project = await getAirtableProjectById(projectId);
     
     if (!project) {
@@ -22,11 +21,9 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    // Calculer le nouveau nombre de likes en fonction de l'action
     const currentLikes = typeof project.fields.Likes === 'number' ? project.fields.Likes : 0;
     const newLikes = action === "add" ? currentLikes + 1 : Math.max(0, currentLikes - 1);
     
-    // Mettre à jour le projet avec le nouveau nombre de likes
     const result = await updateProjectLikes(projectId, newLikes);
     
     if (!result.success) {

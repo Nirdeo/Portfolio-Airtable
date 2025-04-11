@@ -13,7 +13,6 @@ export default function ProjectSearch({ projects, onFilteredProjectsChange }: Pr
   const [selectedTechnologies, setSelectedTechnologies] = useState<string[]>([]);
   const [availableTechnologies, setAvailableTechnologies] = useState<string[]>([]);
 
-  // Extraire toutes les technologies uniques des projets
   useEffect(() => {
     const techSet = new Set<string>();
     
@@ -27,24 +26,19 @@ export default function ProjectSearch({ projects, onFilteredProjectsChange }: Pr
     setAvailableTechnologies(Array.from(techSet).sort());
   }, [projects]);
 
-  // Filtrer les projets en fonction de la recherche et des technologies sélectionnées
   useEffect(() => {
     const filtered = projects.filter(project => {
-      // Filtre par terme de recherche
       const matchesSearch = searchTerm === "" || 
         (project.fields.Nom && project.fields.Nom.toString().toLowerCase().includes(searchTerm.toLowerCase())) ||
         (project.fields.Description && project.fields.Description.toString().toLowerCase().includes(searchTerm.toLowerCase()));
       
-      // Filtre par technologies
       let matchesTech = selectedTechnologies.length === 0;
       
       if (!matchesTech && typeof project.fields.Technologies === 'string') {
-        // Diviser les technologies du projet en tableau et les nettoyer
         const projectTechs = project.fields.Technologies
           .split(',')
           .map(tech => tech.trim());
         
-        // Vérifier si toutes les technologies sélectionnées sont présentes dans le projet
         matchesTech = selectedTechnologies.every(selectedTech => 
           projectTechs.some(projectTech => 
             projectTech.toLowerCase() === selectedTech.toLowerCase()
@@ -58,7 +52,6 @@ export default function ProjectSearch({ projects, onFilteredProjectsChange }: Pr
     onFilteredProjectsChange(filtered);
   }, [searchTerm, selectedTechnologies, projects, onFilteredProjectsChange]);
 
-  // Gérer la sélection/désélection d'une technologie
   const toggleTechnology = (tech: string) => {
     setSelectedTechnologies(prev => 
       prev.includes(tech) 
