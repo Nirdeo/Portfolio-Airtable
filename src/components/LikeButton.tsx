@@ -9,10 +9,8 @@ type LikeButtonProps = {
   className?: string;
 };
 
-// Clé pour le localStorage
 const LIKED_PROJECTS_KEY = "likedProjects";
 
-// Fonction pour récupérer les projets aimés du localStorage
 const getLikedProjects = (): string[] => {
   if (typeof window === "undefined") return [];
   
@@ -25,7 +23,6 @@ const getLikedProjects = (): string[] => {
   }
 };
 
-// Fonction pour sauvegarder les projets aimés dans le localStorage
 const saveLikedProjects = (projects: string[]): void => {
   if (typeof window === "undefined") return;
   
@@ -43,7 +40,6 @@ export default function LikeButton({ projectId, initialLikes, className = "" }: 
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
-  // Vérifier si l'utilisateur a déjà aimé ce projet
   useEffect(() => {
     const likedProjects = getLikedProjects();
     setHasLiked(likedProjects.includes(projectId));
@@ -74,22 +70,18 @@ export default function LikeButton({ projectId, initialLikes, className = "" }: 
       
       setLikes(data.likes);
       
-      // Mettre à jour l'état local et le localStorage
       const newHasLiked = !hasLiked;
       setHasLiked(newHasLiked);
       
       const likedProjects = getLikedProjects();
       if (newHasLiked) {
-        // Ajouter le projet aux projets aimés
         if (!likedProjects.includes(projectId)) {
           saveLikedProjects([...likedProjects, projectId]);
         }
       } else {
-        // Retirer le projet des projets aimés
         saveLikedProjects(likedProjects.filter(id => id !== projectId));
       }
       
-      // Rafraîchir les données de la page
       router.refresh();
       
     } catch (err) {
