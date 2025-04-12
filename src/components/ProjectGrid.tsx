@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Projet } from "@/types/Projet";
 import ProjectSearch from "./ProjectSearch";
 import LikeButton from "./LikeButton";
+import { deleteAirtableProjet } from "@/utils/airtable";
 
 type ProjectGridProps = {
   initialProjects: Projet[];
@@ -14,6 +15,17 @@ type ProjectGridProps = {
 export default function ProjectGrid({ initialProjects }: ProjectGridProps) {
   const [filteredProjects, setFilteredProjects] = useState<Projet[]>(initialProjects);
   
+  const handleDelete = async (id: string) => {
+    if (confirm("Êtes-vous sûr de vouloir supprimer ce projet ?")) {
+      try {
+        await deleteAirtableProjet(id);
+        setFilteredProjects((prev) => prev.filter((project) => project.id !== id));
+      } catch (error) {
+        alert("Erreur lors de la suppression du projet.");
+      }
+    }
+  };
+
   return (
     <>
       <ProjectSearch 
@@ -101,6 +113,12 @@ export default function ProjectGrid({ initialProjects }: ProjectGridProps) {
                     >
                       Détails
                     </Link>
+                    <button
+                      className="text-blue-600 dark:text-red-400 hover:underline font-medium"
+                      onClick={() => handleDelete(project.id)}
+                    >
+                      Supprimer
+                    </button>
                   </div>
                 </div>
               </div>
