@@ -13,7 +13,7 @@ type Props = {
 };
 
 export default async function ProjectDetail({ params }: Props) {
-  const { id } = await params;
+  const { id } = params;
   try {
     const projectData = await getAirtableProjectById(id);
     
@@ -29,16 +29,27 @@ export default async function ProjectDetail({ params }: Props) {
     return (
       <div className="min-h-screen py-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Bouton retour */}
-          <Link 
-            href="/" 
-            className="inline-flex items-center mb-6 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            Retour aux projets
-          </Link>
+          <div className="flex items-center justify-between mb-6">
+            <Link 
+              href="/" 
+              className="inline-flex items-center text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+              Retour aux projets
+            </Link>
+
+            <Link 
+              href={`/projets/edit/${project.id}`}
+              className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-700 text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-2.036a2.5 2.5 0 013.536 3.536L6 21H3v-3L16.732 6.732z" />
+              </svg>
+              Éditer
+            </Link>
+          </div>
 
           {/* En-tête du projet */}
           <div className="mb-8">
