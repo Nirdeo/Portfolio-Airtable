@@ -109,6 +109,57 @@ export async function addAirtableProjet(projet: Projet): Promise<Projet> {
   }
 }
 
+export async function getAirtableProjetById(id: string) {
+  try {
+    const record = await base("Projets").find(id);
+
+    return {
+      id: record.id,
+      fields: record.fields,
+    };
+  } catch (error) {
+    console.error("Erreur lors de la récupération du projet par ID :", error);
+    throw new Error("Impossible de récupérer ce projet");
+  }
+}
+
+export async function updateAirtableProjet(id: string, projet: Projet): Promise<Projet> {
+  try {
+    console.log("Projet à mettre à jour :", projet);
+
+    const updatedRecord = await base('Projets').update([
+      {
+        id: id,
+        fields: {
+          "Nom": projet.fields.Nom,
+          "Description": projet.fields.Description,
+          "Technologies": projet.fields.Technologies,
+          "Lien": projet.fields.Lien,
+          "Visuels": [
+            {
+              url: projet.fields.Visuels[0].url,
+            },
+          ],
+          "Promotion": projet.fields.Promotion,
+          "Administrateur": projet.fields.Administrateur,
+          "Catégorie": projet.fields.Catégorie,
+          "Likes": projet.fields.Likes,
+          "Statut": projet.fields.Statut,
+          "Commentaires": projet.fields.Commentaires,
+        },
+      },
+    ]);
+
+    return {
+      id: updatedRecord[0].id,
+      fields: updatedRecord[0].fields,
+    };
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour du projet :", error);
+    throw new Error("Erreur lors de la mise à jour du projet.");
+  }
+}
+
 export async function getAirtableCommentaires(): Promise<string[]> {
   try {
     const records = await base("Commentaires").select().all();
