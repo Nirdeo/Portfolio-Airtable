@@ -7,6 +7,7 @@ import { Projet } from "@/types/Projet";
 import ProjectSearch from "./ProjectSearch";
 import LikeButton from "./LikeButton";
 import { deleteAirtableProjet } from "@/utils/airtable";
+import { useAuth } from "@/hooks/useAuth";
 
 type ProjectGridProps = {
   initialProjects: Projet[];
@@ -14,6 +15,7 @@ type ProjectGridProps = {
 
 export default function ProjectGrid({ initialProjects }: ProjectGridProps) {
   const [filteredProjects, setFilteredProjects] = useState<Projet[]>(initialProjects);
+  const { isAuthenticated } = useAuth();
   
   const handleDelete = async (id: string) => {
     if (confirm("Êtes-vous sûr de vouloir supprimer ce projet ?")) {
@@ -113,12 +115,14 @@ export default function ProjectGrid({ initialProjects }: ProjectGridProps) {
                     >
                       Détails
                     </Link>
-                    <button
-                      className="text-blue-600 dark:text-red-400 hover:underline font-medium"
-                      onClick={() => handleDelete(project.id)}
-                    >
-                      Supprimer
-                    </button>
+                    {isAuthenticated && (
+                      <button
+                        className="text-blue-600 dark:text-red-400 hover:underline font-medium"
+                        onClick={() => handleDelete(project.id)}
+                      >
+                        Supprimer
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
