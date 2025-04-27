@@ -28,7 +28,7 @@ This is a [Next.js](https://nextjs.org) project that integrates with Airtable to
 
 1. Clonez le dépôt:
    ```bash
-   git clone [URL_DU_REPO]
+   git clone https://github.com/Nirdeo/Portfolio-Airtable
    cd Portfolio-Airtable
    ```
 
@@ -43,6 +43,7 @@ This is a [Next.js](https://nextjs.org) project that integrates with Airtable to
    ```
    AIRTABLE_KEY=votre_clé_api_airtable
    AIRTABLE_BASE=votre_id_base_airtable
+   JWT_SECRET=votre_secret_jwt
    ```
 
    Pour obtenir ces valeurs:

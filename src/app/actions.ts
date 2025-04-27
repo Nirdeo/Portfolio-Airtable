@@ -31,7 +31,8 @@ export async function createToken(admin: any) {
 }
 
 export async function setAuthCookie(token: string) {
-  cookies().set(TOKEN_NAME, token, {
+  const cookiesStore = await cookies();
+  cookiesStore.set(TOKEN_NAME, token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
@@ -41,7 +42,8 @@ export async function setAuthCookie(token: string) {
 }
 
 export async function clearAuthCookie() {
-  cookies().delete(TOKEN_NAME);
+  const cookiesStore = await cookies();
+  cookiesStore.delete(TOKEN_NAME);
 }
 
 export async function login(formData: FormData) {
@@ -103,7 +105,8 @@ export async function logout() {
 }
 
 export async function getAuthStatus() {
-  const token = cookies().get(TOKEN_NAME)?.value;
+  const cookiesStore = await cookies();
+  const token = cookiesStore.get(TOKEN_NAME)?.value;
 
   if (!token) {
     return { isAuthenticated: false };
