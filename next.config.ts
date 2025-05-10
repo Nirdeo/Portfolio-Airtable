@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  output: 'standalone',
   images: {
     domains: ['v5.airtableusercontent.com', 'dl.airtable.com'],
   },

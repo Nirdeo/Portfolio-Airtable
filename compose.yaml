@@ -1,0 +1,25 @@
+services:
+  typescript-app:
+    # Main Next.js application service in development mode
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: typescript-app-dev
+    restart: unless-stopped
+    init: true
+    ports:
+      - "3000:3000"  # Expose Next.js app on port 3000
+    volumes:
+      - .:/app  # Mount source code for hot reloading
+      - /app/node_modules  # Preserve container node_modules
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+    # env_file: ./.env.local  # Uncomment if .env.local file exists
+    networks:
+      - appnet
+    # No depends_on needed as there are no internal DB/cache services
+
+networks:
+  appnet:
+    driver: bridge

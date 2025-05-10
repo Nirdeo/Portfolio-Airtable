@@ -6,7 +6,13 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "docker:up": "docker compose up",
+    "docker:up:build": "docker compose up --build",
+    "docker:up:detach": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "docker:down:orphans": "docker compose down --remove-orphans",
+    "docker:logs": "docker compose logs -f"
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.6",
